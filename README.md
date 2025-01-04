@@ -1,0 +1,1 @@
+# AWS_StaticS3_Terraform_Automation
