@@ -81,7 +81,7 @@ terraform apply
 1. Access your website using the CloudFront URL (https://[cloudfront-domain])
    # Make changes to Terraform files
 
-![Alt text](project-root\image.png)
+![Alt text](image.png)
 
 
 ```
