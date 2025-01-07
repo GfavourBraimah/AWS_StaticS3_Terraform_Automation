@@ -1,4 +1,3 @@
-# S3 Bucket for static website
 resource "aws_s3_bucket" "website" {
   bucket = var.bucket_name
 
@@ -9,9 +8,15 @@ resource "aws_s3_bucket" "website" {
       ManagedBy   = "terraform"
     }
   )
+
+  provisioner "local-exec" {
+    command = <<EOT
+      aws s3 cp ../../website/index.html s3://${self.bucket}/
+      aws s3 cp ../../website/error.html s3://${self.bucket}/
+    EOT
+  }
 }
 
-# Enable website hosting
 resource "aws_s3_bucket_website_configuration" "website" {
   bucket = aws_s3_bucket.website.id
 
@@ -24,7 +29,6 @@ resource "aws_s3_bucket_website_configuration" "website" {
   }
 }
 
-# Public access configuration
 resource "aws_s3_bucket_public_access_block" "website" {
   bucket = aws_s3_bucket.website.id
 
@@ -34,7 +38,6 @@ resource "aws_s3_bucket_public_access_block" "website" {
   restrict_public_buckets = false
 }
 
-# Bucket policy for public access
 resource "aws_s3_bucket_policy" "website" {
   bucket = aws_s3_bucket.website.id
 
@@ -54,7 +57,6 @@ resource "aws_s3_bucket_policy" "website" {
   depends_on = [aws_s3_bucket_public_access_block.website]
 }
 
-# CloudFront distribution
 resource "aws_cloudfront_distribution" "website" {
   enabled             = true
   is_ipv6_enabled     = true

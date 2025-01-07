@@ -78,25 +78,11 @@ terraform plan
 terraform apply
 ```
 
-### 4. Deploy Website Content
-# Upload website files to S3
-```
-aws s3 cp ../../website/index.html s3://s3-static-website-dev/
-aws s3 cp ../../website/error.html s3://s3-static-website-dev/
-
-```
-
-### Accessing Your Website
-After deployment, get your CloudFront domain:
-```
-terraform output cloudfront_domain_name
-
-```
-2. Access your website using the CloudFront URL (https://[cloudfront-domain])
+1. Access your website using the CloudFront URL (https://[cloudfront-domain])
    # Make changes to Terraform files
-```
-terraform plan  # Review changes
-terraform apply # Apply changes
+
+![Alt text](project-root\image.png)
+
 
 ```
 ### Cleanup
